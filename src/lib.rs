@@ -22,7 +22,11 @@ impl Config {
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
   let contents = fs::read_to_string(config.file_path)?;
 
-  Ok(())
+  for line in search(&config.query, &contents) {
+    println!("{}", line);
+  }
+
+  return Ok(());
 }
 
 pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
